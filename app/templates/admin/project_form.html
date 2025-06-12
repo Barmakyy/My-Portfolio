@@ -1,0 +1,153 @@
+{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
+styles %} {{ super() }}
+<link
+  href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+  rel="stylesheet"
+/>
+{% endblock %} {% block content %}
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="display-4 mb-4">{{ title }}</h1>
+      <a href="{{ url_for('admin.projects') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+              {{ form.title.label(class="form-label text-light") }} {{
+              form.title(class="form-control" + (" is-invalid" if
+              form.title.errors else "")) }} {% for error in form.title.errors
+              %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+
+            <div class="mb-3">
+              {{ form.description.label(class="form-label text-light") }} {{
+              form.description(class="form-control summernote" + (" is-invalid"
+              if form.description.errors else "")) }} {% for error in
+              form.description.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+
+            <div class="mb-3">
+              {{ form.github_url.label(class="form-label text-light") }} {{
+              form.github_url(class="form-control" + (" is-invalid" if
+              form.github_url.errors else "")) }} {% for error in
+              form.github_url.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+              <div class="form-text text-light">
+                Enter the URL to your GitHub repository (optional)
+              </div>
+            </div>
+
+            <div class="mb-3">
+              {{ form.demo_url.label(class="form-label text-light") }} {{
+              form.demo_url(class="form-control" + (" is-invalid" if
+              form.demo_url.errors else "")) }} {% for error in
+              form.demo_url.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+              <div class="form-text text-light">
+                Enter the URL to your live demo (optional)
+              </div>
+            </div>
+
+            <div class="mb-3">
+              {{ form.tags.label(class="form-label text-light") }} {{
+              form.tags(class="form-control" + (" is-invalid" if
+              form.tags.errors else "")) }} {% for error in form.tags.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+              <div class="form-text text-light">
+                Enter tags separated by commas (e.g., Python, Flask, Web
+                Development)
+              </div>
+            </div>
+
+            <div class="mb-3">
+              {{ form.image.label(class="form-label text-light") }} {{
+              form.image(class="form-control" + (" is-invalid" if
+              form.image.errors else "")) }} {% for error in form.image.errors
+              %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %} {% if form.image.data %}
+              <div class="mt-2">
+                <img
+                  src="{{ url_for('static', filename='uploads/' + form.image.data) }}"
+                  alt="Current project image"
+                  class="img-thumbnail"
+                  style="max-height: 200px"
+                />
+              </div>
+              {% endif %}
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save Project
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card bg-dark text-light">
+        <div class="card-header bg-dark text-light">
+          <h5 class="card-title mb-0 text-light">Project Settings</h5>
+        </div>
+        <div class="card-body bg-dark text-light">
+          <div class="mb-3">
+            <label class="form-label text-light">Preview</label>
+            <p class="text-light">
+              Click the "Save Project" button to save your changes. You can
+              preview your project by clicking the title in the projects list.
+            </p>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-light">Tips</label>
+            <ul class="text-light">
+              <li>Add a clear and concise title</li>
+              <li>Provide a detailed description of your project</li>
+              <li>Include relevant tags for better discoverability</li>
+              <li>Add links to GitHub and live demo if available</li>
+              <li>Use a high-quality image that represents your project</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %} {{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".summernote").summernote({
+      height: 300,
+      toolbar: [
+        ["style", ["style"]],
+        ["font", ["bold", "underline", "clear"]],
+        ["color", ["color"]],
+        ["para", ["ul", "ol", "paragraph"]],
+        ["table", ["table"]],
+        ["insert", ["link", "picture"]],
+        ["view", ["fullscreen", "codeview", "help"]],
+      ],
+    });
+  });
+</script>
+{% endblock %}

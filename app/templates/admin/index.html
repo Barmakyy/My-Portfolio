@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
+<div class="container py-4">
+  <h1 class="mb-4">Admin Dashboard</h1>
+
+  <!-- Statistics Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <h5 class="card-title">Projects</h5>
+          <p class="card-text display-6">{{ projects_count }}</p>
+          <a href="{{ url_for('admin.projects') }}" class="btn btn-light btn-sm"
+            >Manage Projects</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-success text-white">
+        <div class="card-body">
+          <h5 class="card-title">Blog Posts</h5>
+          <p class="card-text display-6">{{ posts_count }}</p>
+          <a href="{{ url_for('admin.posts') }}" class="btn btn-light btn-sm"
+            >Manage Posts</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-info text-white">
+        <div class="card-body">
+          <h5 class="card-title">Messages</h5>
+          <p class="card-text display-6">{{ messages_count }}</p>
+          <a href="{{ url_for('admin.messages') }}" class="btn btn-light btn-sm"
+            >View Messages</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card bg-warning text-white">
+        <div class="card-body">
+          <h5 class="card-title">Unread Messages</h5>
+          <p class="card-text display-6">{{ unread_messages }}</p>
+          <a href="{{ url_for('admin.messages') }}" class="btn btn-light btn-sm"
+            >View Messages</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <a
+              href="{{ url_for('admin.new_project') }}"
+              class="btn btn-primary"
+            >
+              <i class="fas fa-plus me-2"></i>Add New Project
+            </a>
+            <a href="{{ url_for('admin.new_post') }}" class="btn btn-success">
+              <i class="fas fa-plus me-2"></i>Create New Blog Post
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Recent Activity</h5>
+        </div>
+        <div class="card-body">
+          <p class="text-muted">No recent activity to display.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

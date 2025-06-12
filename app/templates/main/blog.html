@@ -1,0 +1,155 @@
+{% extends "base.html" %} {% block title %}Blog{% endblock %} {% block content
+%}
+<!-- Blog Header -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h1 class="display-4 mb-4">Blog</h1>
+    <p class="lead">Thoughts, tutorials, and updates about my work.</p>
+  </div>
+</section>
+
+<!-- Blog Posts -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        {% for post in posts.items %}
+        <article class="card blog-post mb-4">
+          {% if post.image_url %}
+          <img
+            src="{{ url_for('static', filename='uploads/' + post.image_url) }}"
+            class="card-img-top"
+            alt="{{ post.title }}"
+          />
+          {% endif %}
+          <div class="card-body">
+            <h2 class="card-title h4">
+              <a
+                href="{{ url_for('main.blog_post', slug=post.slug) }}"
+                class="text-decoration-none"
+              >
+                {{ post.title }}
+              </a>
+            </h2>
+            <p class="card-text">{{ post.content[:200] }}...</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <small class="text-muted">
+                  <i class="fas fa-user me-1"></i> {{ post.author.username }}
+                </small>
+                <small class="text-muted ms-3">
+                  <i class="fas fa-calendar me-1"></i> {{
+                  post.created_at.strftime('%B %d, %Y') }}
+                </small>
+              </div>
+              <a
+                href="{{ url_for('main.blog_post', slug=post.slug) }}"
+                class="btn btn-outline-primary"
+              >
+                Read More
+              </a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+
+        <!-- Pagination -->
+        {% if posts.pages > 1 %}
+        <nav aria-label="Blog pagination">
+          <ul class="pagination justify-content-center">
+            {% if posts.has_prev %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{{ url_for('main.blog', page=posts.prev_num) }}"
+                >Previous</a
+              >
+            </li>
+            {% endif %} {% for page_num in posts.iter_pages(left_edge=2,
+            left_current=2, right_current=3, right_edge=2) %} {% if page_num %}
+            {% if page_num == posts.page %}
+            <li class="page-item active">
+              <span class="page-link">{{ page_num }}</span>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{{ url_for('main.blog', page=page_num) }}"
+                >{{ page_num }}</a
+              >
+            </li>
+            {% endif %} {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+            {% endif %} {% endfor %} {% if posts.has_next %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="{{ url_for('main.blog', page=posts.next_num) }}"
+                >Next</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <div class="card mb-4 bg-dark text-light">
+          <div class="card-body">
+            <h5 class="card-title text-light">About the Blog</h5>
+            <p class="card-text text-light">
+              Welcome to my blog where I share my thoughts on web development,
+              programming tips, and project updates.
+            </p>
+          </div>
+        </div>
+
+        <div class="card mb-4 bg-dark text-light">
+          <div class="card-body">
+            <h5 class="card-title text-light">Recent Posts</h5>
+            <ul class="list-unstyled">
+              {% for post in posts.items[:5] %}
+              <li class="mb-2">
+                <a
+                  href="{{ url_for('main.blog_post', slug=post.slug) }}"
+                  class="text-decoration-none text-info"
+                >
+                  {{ post.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="card bg-dark text-light">
+          <div class="card-body">
+            <h5 class="card-title text-light">Subscribe</h5>
+            <p class="card-text text-light">
+              Get notified when I publish new posts.
+            </p>
+            <form>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control bg-light text-dark"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

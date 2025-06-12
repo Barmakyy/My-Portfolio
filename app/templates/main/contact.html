@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% block title %}Contact Me{% endblock %} {% block
+content %}
+<section class="contact-section py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="col-lg-8">
+        <h2 class="mb-4">Get in Touch</h2>
+        <form
+          method="POST"
+          action="{{ url_for('main.contact') }}"
+          class="contact-form"
+        >
+          {{ form.hidden_tag() }}
+
+          <div class="mb-3">
+            {{ form.name.label(class="form-label") }} {{
+            form.name(class="form-control" + (" is-invalid" if form.name.errors
+            else "")) }} {% for error in form.name.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.email.label(class="form-label") }} {{
+            form.email(class="form-control" + (" is-invalid" if
+            form.email.errors else "")) }} {% for error in form.email.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.subject.label(class="form-label") }} {{
+            form.subject(class="form-control" + (" is-invalid" if
+            form.subject.errors else "")) }} {% for error in form.subject.errors
+            %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="mb-3">
+            {{ form.message.label(class="form-label") }} {{
+            form.message(class="form-control" + (" is-invalid" if
+            form.message.errors else ""), rows="5") }} {% for error in
+            form.message.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane me-2"></i>Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="col-lg-4">
+        <div class="contact-info">
+          <h3 class="mb-4">Contact Information</h3>
+
+          <div class="mb-4">
+            <h5><i class="fas fa-envelope me-2"></i>Email</h5>
+            <p class="text-muted">barmakyy10@gmail.com</p>
+          </div>
+
+          <div class="mb-4">
+            <h5><i class="fas fa-phone me-2"></i>Phone</h5>
+            <p class="text-muted">+254759692110</p>
+          </div>
+
+          <div class="mb-4">
+            <h5><i class="fas fa-map-marker-alt me-2"></i>Location</h5>
+            <p class="text-muted">Mombasa, Kenya</p>
+          </div>
+
+          <div class="social-links">
+            <h5 class="mb-3">Follow Me</h5>
+            <a
+              href="https://github.com/Barmakyy"
+              class="btn btn-outline-primary me-2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-github me-2"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/yahya-mohammed-6a3555366"
+              class="btn btn-outline-primary me-2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-linkedin me-2"></i>
+            </a>
+            <a
+              href="https://x.com/barmakyy"
+              class="btn btn-outline-primary me-2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-twitter me-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+  <div class="container-fluid p-0">
+    <div class="ratio ratio-21x9">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.19790363913!2d39.643452!3d-4.043477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1840121b1b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2sMombasa%2C%20Kenya!5e0!3m2!1sen!2ske!4v1710000000000!5m2!1sen!2ske"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+{# Consider moving this block to a shared template for reuse across pages #} {%
+endblock %}
