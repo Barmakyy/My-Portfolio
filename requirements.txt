@@ -7,4 +7,5 @@ email-validator==2.1.0.post1
 python-dotenv==1.0.0
 Werkzeug==3.0.1
 Pillow==10.1.0
-python-slugify==8.0.4 
+python-slugify==8.0.4
+gunicorn 
